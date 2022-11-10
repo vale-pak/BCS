@@ -1,4 +1,4 @@
-# !! Note that python v 3.8, umap.learn v 0.5.1, numba v 0.53.1, and pickle v 0.7.5 are needed !!
+## !! Note that python v 3.8, umap.learn v 0.5.1, numba v 0.53.1, and pickle v 0.7.5 are needed !!
 
 #libraries we will be working with
 import os
