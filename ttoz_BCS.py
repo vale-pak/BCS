@@ -1,14 +1,18 @@
+import os
+import sys
 from scipy.stats import norm
 from scipy.stats import t
 import nibabel as nib
 import numpy as np
 
-
-inTfile = "YOUR_PATHNAME/YOUR_NIFTI.nii.gz"
-outZfile = "YOUR_PATHNAME/YOUR_NIFTI_OUTPUT.nii.gz"
-dof = #n degrees of freedom of the study
+#set the input image and the output image names on the terminal
+inTfile = sys.argv[1]
+outZfile = sys.argv[2]
+#degrees of freedom of the map to be transformed
+dof = n
 sided = 2  # 1 for one-sided, 2 for two-sided t-test
 
+#compute zmaps
 tmap_im = nib.load(inTfile)
 in_dtype = tmap_im.get_data_dtype()
 tmap = tmap_im.get_fdata(dtype=in_dtype)
