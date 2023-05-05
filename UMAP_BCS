@@ -36,3 +36,28 @@ np.savetxt("00_2017coordinates_parcelled.txt", X_embedded, delimiter=';', fmt='%
 
 space = '00_2017space_parcelledpickle.sav'
 pickle.dump(fit,open(space,'wb'))
+
+mycsvfile = "neurosynth_2017_parcelled.csv"
+data_csv = pd.read_csv(mycsvfile, header=None, sep=",")
+datamatrix = np.matrix(data_csv)
+datamatrix.shape
+X = datamatrix
+
+#Apply UMAP
+fit = umap.UMAP(n_components=3)
+X_embedded = fit.fit_transform(X)
+X_embedded.shape
+
+#Quick look at the embedding
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(X_embedded[:,0], X_embedded[:,1], X_embedded[:,2], s=100)
+plt.scatter(x_axes, y_axes, c = 'black')
+plt.show()
+
+#save the coordinate for each map.
+np.savetxt("00_BCS_3D.csv", X_embedded)
+
+#save the BCS as python object
+space = '00_BCS_3D.sav'
+pickle.dump(fit,open(space,'wb'))
