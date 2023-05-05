@@ -8,25 +8,26 @@ import numpy as np
 import pandas as pd
 # Panda to manipulate csv matrices
 
-mycsvfile = "/Users/valentinapacella/Dropbox (GIN)/MSCA/4valentina/Fabric/001_Original_funMAPS/UMAPped/00_2017coordinates_parcelled_eucli.csv"
-
-data_csv = pd.read_csv(mycsvfile, header=None, sep=';')
-
-#transform data as array
+#read the BCS coordinates file.csv
+mycsvfile = "/YOUR_DIRECTORY/00_BCS_3D.csv"
+data_csv = pd.read_csv(mycsvfile, header=None, sep=' ')
 data_csv_arr = np.array(data_csv)
-#renamed
-coords = np.array(data_csv)
+data_csv_arr.shape
 
-# select the n items
-grid_coords = coords[-0:]
+#create output file
+output = "euclidean_distances.csv"
 
-#dist = []
-for i, (x1, y1) in enumerate(grid_coords):
-    d = []
-    #name_i = 'coord_' + str(i) + '.txt'
-    name_i = f'coord_{i+1}.txt'
-    print(i)
-    for e, (x2, y2) in enumerate(grid_coords):
-        if e != i:
-            d.append(np.sqrt((x1-x2)**2 + (y1-y2)**2))
-    np.savetxt(name_i, d)
+#compute the euclidean distances between each and other maps in the BCS
+dist = np.zeros((len(data_csv), len(data_csv)))
+for i in range(len(data_csv)):
+    for j in range(len(data_csv)):
+        if j < i:
+            x1 = data_csv_arr[i, 0]
+            x2 = data_csv_arr[j, 0]
+            y1 = data_csv_arr[i, 1]
+            y2 = data_csv_arr[j, 1]
+            z1 = data_csv_arr[i, 2]
+            z2 = data_csv_arr[j, 2]
+            d = np.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+            dist[i, j] = d
+np.savetxt(output, dist)
