@@ -5,7 +5,7 @@ do echo $a
 #select each image to parcell
 cd ..
     cd Images_predicted_thr
-    for b in *predicted_tstat1.nii.gz
+    for b in *predicted_tstat1_thr.nii.gz
     do echo $b
     cd ..
 # compute average z for voxels within the parcell 
